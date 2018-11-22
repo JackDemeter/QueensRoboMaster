@@ -11,6 +11,7 @@ import cv2
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
 file = open("emitterCoords.txt","w+")
 
+#for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
 for picNum in range(197):
 	# set the image path, this will increment by one each loop. looks like "IR-#####.jpg" with incrementing numbers (and leading zeroes)
 	imagePath = "IR-"+str(picNum).zfill(5)+".jpg"
