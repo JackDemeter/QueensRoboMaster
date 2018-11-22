@@ -1,3 +1,5 @@
+#FIND SMALL BRIGHT SPOTS IN AN IMAGE
+
 # import the necessary packages
 from imutils import contours
 from skimage import measure
