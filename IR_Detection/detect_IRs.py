@@ -9,7 +9,7 @@ import imutils
 import cv2
 
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
-file = open("IR_Detection/emitterCoords.txt", "w+")
+file = open("emitterCoords.txt", "w+")
 
 # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
 for picNum in range(20):
