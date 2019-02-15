@@ -9,7 +9,8 @@ import imutils
 import cv2
 
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
-file = open("emitterCoords.txt", "w+")
+fileX = open("XCoords.txt", "w+")
+fileY = open("YCoords.txt", "w+")
 
 # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
 for picNum in range(20):
@@ -88,10 +89,12 @@ for picNum in range(20):
               str(x) + "\ny: " + str(y) + "\n\n")
 
         # write coords to file
-        file.write("%d %d\n" % (x, y))
+        fileX.write("%d\n" % (x))
+        fileY.write("%d\n" % (y))
 
     # write a new line for each photo
-    file.write("\n")
+    fileX.write("\n")
+    fileY.write("\n")
 
     # show the output image
     ##cv2.imshow("Image", image)
@@ -101,4 +104,5 @@ for picNum in range(20):
 
 
 # close the coordinate text file
-file.close()
+fileX.close()
+fileY.close()
