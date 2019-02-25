@@ -1,5 +1,4 @@
 # FIND SMALL BRIGHT SPOTS IN AN IMAGE
-
 # import the necessary packages
 from imutils import contours
 from skimage import measure
@@ -9,11 +8,13 @@ import imutils
 import cv2
 
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
-fileX = open("XCoords.txt", "w+")
-fileY = open("YCoords.txt", "w+")
 
 # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
-for picNum in range(20):
+for picNum in range(10):
+   
+    fileX = open("outputCoordinates/XCoords-"+str(picNum).zfill(5)+".txt", "w+")
+    fileY = open("outputCoordinates/YCoords-"+str(picNum).zfill(5)+".txt", "w+")
+
     # set the image path, this will increment by one each loop. looks like "IR-#####.jpg" with incrementing numbers (and leading zeroes)
     imagePath = "IR-"+str(picNum).zfill(5)+".jpg"
 
@@ -92,9 +93,6 @@ for picNum in range(20):
         fileX.write("%d\n" % (x))
         fileY.write("%d\n" % (y))
 
-    # write a new line for each photo
-    fileX.write("\n")
-    fileY.write("\n")
 
     # show the output image
     ##cv2.imshow("Image", image)
@@ -102,7 +100,8 @@ for picNum in range(20):
     # save the image to the outputImages folder
     cv2.imwrite("outputImages/"+imagePath, image)
 
+    # close the coordinate text files
+    fileX.close()
+    fileY.close()
 
-# close the coordinate text file
-fileX.close()
-fileY.close()
+
