@@ -10,7 +10,7 @@ import cv2
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
 
 # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
-for picNum in range(10):
+for picNum in range(1):
    
     fileX = open("outputCoordinates/XCoords-"+str(picNum).zfill(5)+".txt", "w+")
     fileY = open("outputCoordinates/YCoords-"+str(picNum).zfill(5)+".txt", "w+")
