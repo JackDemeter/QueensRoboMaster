@@ -1,4 +1,5 @@
 from sklearn.cluster import KMeans
+from sklearn.neighbors import NearestNeighbors
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -34,7 +35,7 @@ for coordNum in range(int(number_coordinates)):
         IR_data = np.concatenate((xData, yData), 1)
 
         # perform kmeans algorithm on the data with certain clusters  
-        kmeans = KMeans(n_clusters=2, random_state=0).fit(IR_data)
+        kmeans = KMeans(n_clusters=1, random_state=0).fit(IR_data)
 
         # plot all the points as well as the kmeans clusters
         plt.scatter(IR_data[:, 0], IR_data[:, 1], color='black')
