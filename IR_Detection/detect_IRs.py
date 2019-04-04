@@ -11,11 +11,11 @@ import csv
 # CONSTS
 XTHRESHOLD = 5
 YTHRESHOLD = 5
-MULT = 0.25
-XSHIFT = 30
-YSHIFT = -50
-XSTRETCH = .20
-YSTRETCH = .10
+MULT = 0
+XSHIFT = 0
+YSHIFT = 0
+XSTRETCH = 0
+YSTRETCH = 0
 
 
 
@@ -41,13 +41,27 @@ def make_square(pair1, pair2, mult = 0):
 
     return [int(xmin + XSHIFT + (xcenter - 320) * XSTRETCH) ,int(ymin + YSHIFT + (ycenter - 400) * YSTRETCH), xmax -xmin+ 4, ymax-ymin+4]
 
+def square_coords(pair1, pair2, mult = 0):
+    coords1, coords2 = pair1
+    coords3, coords4 = pair2
+    list_x = [coords1[0],coords2[0],coords3[0],coords4[0]]
+    list_y = [coords1[1],coords2[1],coords3[1],coords4[1]]
+    # returns the x,y,w,h of the bounding box
+    xmin = min(list_x)
+    ymin = min(list_y)
+    xmax = max(list_x)
+    ymax = max(list_y)
+
+
+    return [xmin, ymin, xmax, ymax]
+
 # open a text file called dotCoords.txt, make it if it doesnt exist. This file will store the coordinates of the emitters
-with open("batch1.csv", mode='a') as batch:
+with open("batch1.csv", mode='a', newline='') as batch:
     batch_writer = csv.writer(batch, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
     batch_writer.writerow(['filename', 'width', 'height', 'class', 'xmin','ymin', 'xmax', 'ymax'])
     # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
-    for picNum in range(1,340):
+    for picNum in range(1,100):
     
         #fileX = open("outputCoordinates/XCoords-"+str(picNum).zfill(5)+".txt", "w+")
         #fileY = open("outputCoordinates/YCoords-"+str(picNum).zfill(5)+".txt", "w+")
@@ -161,21 +175,25 @@ with open("batch1.csv", mode='a') as batch:
                     avg_x_list.append(avg_x)
                     x_pair.append(([x_array[n], y_array[n]],[x_array[j], y_array[j]] ))
 
+     
         # compare all pairs and make a bounding box
         for n in range(len(avg_y_list) - 1):
             for j in range(n+1, len(avg_y_list)):
                 if abs(avg_y_list[n]-avg_y_list[j]) < YTHRESHOLD:
                     square_detected = True
                     x,y,w,h = make_square(x_pair[n], x_pair[j], MULT)
+                    square_coords_list = square_coords(x_pair[n], x_pair[j], MULT)
+                    batch_writer.writerow([imagePath, 640, 480, 'plate', square_coords_list[0], square_coords_list[1], square_coords_list[2], square_coords_list[3]])
+                    cv2.rectangle(image, (x,y) ,(x+w,y+h), (0,255,0), 2)
                     cv2.rectangle(image2, (x,y) ,(x+w,y+h), (0,255,0), 2)
-                    #batch_writer.writerow([imagePath2, '640', '480', 'plate', x,y, x+w, y+h])
-
-
 
 
         # save the image to the outputImages folder
         if square_detected:
+            cv2.imwrite("outputImages/"+imagePath, image)
             cv2.imwrite("outputImages/"+imagePath2, image2)
+            
+
 
         # close the coordinate text files
         #fileX.close()
