@@ -61,7 +61,7 @@ with open("batch1.csv", mode='a', newline='') as batch:
 
     batch_writer.writerow(['filename', 'width', 'height', 'class', 'xmin','ymin', 'xmax', 'ymax'])
     # for loop that runs the whole program, set the range(#) to whatever number of pictures you have so the program runs through each one
-    for picNum in range(1,100):
+    for picNum in range(1,2):
     
         #fileX = open("outputCoordinates/XCoords-"+str(picNum).zfill(5)+".txt", "w+")
         #fileY = open("outputCoordinates/YCoords-"+str(picNum).zfill(5)+".txt", "w+")
